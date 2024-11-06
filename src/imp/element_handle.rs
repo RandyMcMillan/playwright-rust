@@ -201,11 +201,11 @@ impl ElementHandle {
     }
 
     pub(crate) async fn screenshot(&self, args: ScreenshotArgs<'_>) -> ArcResult<Vec<u8>> {
-        let path = args.path.clone();
+        let path = args.path;
         let v = send_message!(self, "screenshot", args);
         let b64 = only_str(&v)?;
         let bytes = base64::decode(b64).map_err(Error::InvalidBase64)?;
-        may_save(path.as_deref(), &bytes)?;
+        may_save(path, &bytes)?;
         Ok(bytes)
     }
 

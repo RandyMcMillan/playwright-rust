@@ -85,7 +85,7 @@ impl Drop for Connection {
 impl Connection {
     fn try_new(exec: &Path) -> io::Result<Connection> {
         let mut child = Command::new(exec)
-            .args(&["run-driver"])
+            .args(["run-driver"])
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
             .stderr(Stdio::null())
@@ -129,7 +129,7 @@ impl Connection {
                         let mut reader = match r.try_lock() {
                             Ok(x) => x,
                             Err(TryLockError::WouldBlock) => continue,
-                            Err(e) => Err(e).unwrap()
+                            Err(e) => panic!("{:?}", e)
                         };
                         match reader.try_read()? {
                             Some(x) => x,
@@ -201,7 +201,7 @@ impl Context {
 
     fn notify_closed(&mut self, e: Error) {
         let err = Arc::new(e);
-        for p in self.callbacks.iter().map(|(_, v)| v) {
+        for p in self.callbacks.values() {
             Context::respond_wait(p, Err(err.clone()));
         }
         self.objects = HashMap::new();

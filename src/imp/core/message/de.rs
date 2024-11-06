@@ -269,7 +269,7 @@ impl<'de, 'a> de::Deserializer<'de> for &'a mut Deserializer<'de> {
                 _ => None
             });
         let n2 = v.as_null();
-        let _ = n1.or(n2).ok_or(Error::TypeMismatch)?;
+        n1.or(n2).ok_or(Error::TypeMismatch)?;
         visitor.visit_unit()
     }
 
@@ -295,7 +295,7 @@ impl<'de, 'a> de::Deserializer<'de> for &'a mut Deserializer<'de> {
         visitor.visit_newtype_struct(self)
     }
 
-    fn deserialize_seq<V>(mut self, visitor: V) -> Result<V::Value, Self::Error>
+    fn deserialize_seq<V>(self, visitor: V) -> Result<V::Value, Self::Error>
     where
         V: Visitor<'de>
     {
@@ -307,7 +307,7 @@ impl<'de, 'a> de::Deserializer<'de> for &'a mut Deserializer<'de> {
             .ok_or(Error::TypeMismatch);
         let a2 = v.as_array().ok_or(Error::TypeMismatch);
         let a = a1.or(a2)?;
-        visitor.visit_seq(Array::new(&mut self, a))
+        visitor.visit_seq(Array::new(self, a))
     }
 
     fn deserialize_tuple<V>(self, _len: usize, visitor: V) -> Result<V::Value, Self::Error>
@@ -330,7 +330,7 @@ impl<'de, 'a> de::Deserializer<'de> for &'a mut Deserializer<'de> {
     }
 
     // TODO: datetime
-    fn deserialize_map<V>(mut self, visitor: V) -> Result<V::Value, Self::Error>
+    fn deserialize_map<V>(self, visitor: V) -> Result<V::Value, Self::Error>
     where
         V: Visitor<'de>
     {
@@ -343,13 +343,13 @@ impl<'de, 'a> de::Deserializer<'de> for &'a mut Deserializer<'de> {
         if m.contains_key("v") || m.contains_key("a") {
             Err(Error::TypeMismatch)
         } else if m.contains_key("d") {
-            visitor.visit_map(Object::new(&mut self, m))
+            visitor.visit_map(Object::new(self, m))
         } else if m.contains_key("o") {
-            visitor.visit_map(ObjectArr::new(&mut self, o1?))
+            visitor.visit_map(ObjectArr::new(self, o1?))
         } else if m.contains_key("n") || m.contains_key("s") || m.contains_key("b") {
             Err(Error::TypeMismatch)
         } else {
-            visitor.visit_map(Object::new(&mut self, m))
+            visitor.visit_map(Object::new(self, m))
         }
     }
 

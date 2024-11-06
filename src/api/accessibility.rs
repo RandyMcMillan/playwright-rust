@@ -33,7 +33,7 @@ impl Accessibility {
     /// page.
     ///
     /// > NOTE: The Chromium accessibility tree contains nodes that go unused on most platforms and by most screen readers.
-    /// Playwright will discard them as well for an easier to process tree, unless `interestingOnly` is set to `false`.
+    /// > Playwright will discard them as well for an easier to process tree, unless `interestingOnly` is set to `false`.
     ///
     /// An example of dumping the entire accessibility tree:
     ///

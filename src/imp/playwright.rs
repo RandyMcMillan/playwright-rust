@@ -104,7 +104,7 @@ impl Future for WaitInitialObject {
         let c = match rc.try_lock() {
             Ok(x) => x,
             Err(TryLockError::WouldBlock) => pending!(),
-            Err(e) => Err(e).unwrap()
+            Err(e) => panic!("{:?}", e)
         };
         match get_object!(c, i, Playwright) {
             Ok(p) => Poll::Ready(Ok(p)),

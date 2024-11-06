@@ -12,8 +12,8 @@ pub use crate::{
 };
 use crate::{
     api::{
-        input_device::*, Accessibility, BrowserContext, ConsoleMessage, ElementHandle, FileChooser,
-        Frame, Keyboard, Response, TouchScreen, Video, WebSocket, Worker
+        input_device::*, Accessibility, BrowserContext, ConsoleMessage, ElementHandle, Frame,
+        Keyboard, Response, TouchScreen, Video, WebSocket, Worker
     },
     imp::{
         core::*,
@@ -201,7 +201,7 @@ impl Page {
     /// ```
     /// 
     /// > NOTE: The order of evaluation of multiple scripts installed via [`method: BrowserContext.addInitScript`] and
-    /// [`method: Page.addInitScript`] is not defined.
+    /// > [`method: Page.addInitScript`] is not defined.
     pub async fn add_init_script(&self, source: &str) -> ArcResult<()> {
         // arg not supported
         upgrade(&self.inner)?.add_init_script(source).await
@@ -215,8 +215,8 @@ impl Page {
     /// [`method: Page.emulateMedia`] before calling `page.pdf()`:
     ///
     /// > NOTE: By default, `page.pdf()` generates a pdf with modified colors for printing. Use the
-    /// [`-webkit-print-color-adjust`](https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-print-color-adjust) property to
-    /// force rendering of exact colors.
+    /// > [`-webkit-print-color-adjust`](https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-print-color-adjust) property to
+    /// > force rendering of exact colors.
     ///
     /// ```js
     ///// Generates a PDF with 'screen' media type.
@@ -251,7 +251,7 @@ impl Page {
     /// - `A6`: 4.13in x 5.83in
     ///
     /// > NOTE: `headerTemplate` and `footerTemplate` markup have the following limitations: > 1. Script tags inside templates
-    /// are not evaluated. > 2. Page styles are not visible inside templates.
+    /// > are not evaluated. > 2. Page styles are not visible inside templates.
     pub fn pdf_builder(&self) -> PdfBuilder<'_, '_, '_, '_, '_, '_, '_, '_, '_, '_> {
         PdfBuilder::new(self.inner.clone())
     }
@@ -264,7 +264,7 @@ impl Page {
     /// By default, `page.close()` **does not** run `beforeunload` handlers.
     ///
     /// > NOTE: if `runBeforeUnload` is passed as true, a `beforeunload` dialog might be summoned and should be handled manually
-    /// via [`event: Page.dialog`] event.
+    /// > via [`event: Page.dialog`] event.
     pub async fn close(&self, run_before_unload: Option<bool>) -> ArcResult<()> {
         let inner = match self.inner.upgrade() {
             None => return Ok(()),
@@ -375,8 +375,8 @@ pub enum Event {
     /// `Download` instance.
     ///
     /// > NOTE: Browser context **must** be created with the `acceptDownloads` set to `true` when user needs access to the
-    /// downloaded content. If `acceptDownloads` is not set, download events are emitted, but the actual download is not
-    /// performed and user has no access to the downloaded files.
+    /// > downloaded content. If `acceptDownloads` is not set, download events are emitted, but the actual download is not
+    /// > performed and user has no access to the downloaded files.
     Download(Download),
     /// Emitted when a file chooser is supposed to appear, such as after clicking the  `<input type=file>`. Playwright can
     /// respond to it via setting the input files using [`method: FileChooser.setFiles`] that can be uploaded after that.
@@ -408,7 +408,7 @@ pub enum Event {
     /// ```
     ///
     /// > NOTE: Use [`method: Page.waitForLoadState`] to wait until the page gets to a particular state (you should not need it
-    /// in most cases).
+    /// > in most cases).
     Popup(Page),
     /// Emitted when a page issues a request. The request object is read-only. In order to intercept and mutate requests, see
     /// [`method: Page.route`] or [`method: BrowserContext.route`].
@@ -416,7 +416,7 @@ pub enum Event {
     /// Emitted when a request fails, for example by timing out.
     ///
     /// > NOTE: HTTP Error responses, such as 404 or 503, are still successful responses from HTTP standpoint, so request will
-    /// complete with [`event: Page.requestFinished`] event and not with [`event: Page.requestFailed`].
+    /// > complete with [`event: Page.requestFinished`] event and not with [`event: Page.requestFailed`].
     RequestFailed(Request),
     /// Emitted when a request finishes successfully after downloading the response body. For a successful response, the
     /// sequence of events is `request`, `response` and `requestfinished`.
@@ -635,9 +635,9 @@ impl Page {
     /// [`method: Response.status`].
     ///
     /// > NOTE: `page.goto` either throws an error or returns a main resource response. The only exceptions are navigation to
-    /// `about:blank` or navigation to the same URL with a different hash, which would succeed and return `null`.
+    /// > `about:blank` or navigation to the same URL with a different hash, which would succeed and return `null`.
     /// > NOTE: Headless mode doesn't support navigation to a PDF document. See the
-    /// [upstream issue](https://bugs.chromium.org/p/chromium/issues/detail?id=761295).
+    /// > [upstream issue](https://bugs.chromium.org/p/chromium/issues/detail?id=761295).
     ///
     /// Shortcut for main frame's [`method: Frame.goto`]
     pub fn goto_builder<'a>(&self, url: &'a str) -> GotoBuilder<'a, '_> {

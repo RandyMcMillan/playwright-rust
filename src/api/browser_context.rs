@@ -132,7 +132,7 @@ impl BrowserContext {
     /// await browserContext.setGeolocation({latitude: 59.95, longitude: 30.31667});
     /// ```
     /// > NOTE: Consider using [`method: BrowserContext.grantPermissions`] to grant permissions for the browser context pages to
-    /// read its geolocation.
+    /// > read its geolocation.
     pub async fn set_geolocation(&self, geolocation: Option<&Geolocation>) -> ArcResult<()> {
         upgrade(&self.inner)?.set_geolocation(geolocation).await
     }
@@ -163,7 +163,7 @@ impl BrowserContext {
     /// });
     /// ```
     /// > NOTE: The order of evaluation of multiple scripts installed via [`method: BrowserContext.addInitScript`] and
-    /// [`method: Page.addInitScript`] is not defined.
+    /// > [`method: Page.addInitScript`] is not defined.
     pub async fn add_init_script(&self, script: &str) -> ArcResult<()> {
         // arg not supported
         upgrade(&self.inner)?.add_init_script(script).await

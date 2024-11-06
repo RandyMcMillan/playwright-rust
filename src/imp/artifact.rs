@@ -27,7 +27,7 @@ impl Artifact {
             return Err(Error::RemoteArtifact.into());
         }
         let v = send_message!(self, "pathAfterFinished", Map::new());
-        let p: Option<PathBuf> = maybe_only_str(&*v)?.map(|s| s.into());
+        let p: Option<PathBuf> = maybe_only_str(&v)?.map(|s| s.into());
         Ok(p)
     }
 

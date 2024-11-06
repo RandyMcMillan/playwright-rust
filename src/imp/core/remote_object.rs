@@ -391,7 +391,7 @@ where
             let x = match this.place.try_lock() {
                 Ok(x) => x,
                 Err(TryLockError::WouldBlock) => pending!(),
-                Err(e) => Err(e).unwrap()
+                Err(e) => panic!("{:?}", e)
             };
             if let Some(x) = &*x {
                 return Poll::Ready(x.clone());
@@ -401,7 +401,7 @@ where
             let mut x = match this.waker.try_lock() {
                 Ok(x) => x,
                 Err(TryLockError::WouldBlock) => pending!(),
-                Err(e) => Err(e).unwrap()
+                Err(e) => panic!("{:?}", e)
             };
             if x.is_none() {
                 *x = Some(cx.waker().clone());

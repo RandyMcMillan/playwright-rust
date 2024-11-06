@@ -46,19 +46,19 @@ impl BrowserType {
     /// ```
     ///
     /// > **Chromium-only** Playwright can also be used to control the Google Chrome or Microsoft Edge browsers, but it works
-    /// best with the version of Chromium it is bundled with. There is no guarantee it will work with any other version. Use
-    /// `executablePath` option with extreme caution.
+    /// > best with the version of Chromium it is bundled with. There is no guarantee it will work with any other version. Use
+    /// > `executablePath` option with extreme caution.
     /// >
     /// > If Google Chrome (rather than Chromium) is preferred, a
-    /// [Chrome Canary](https://www.google.com/chrome/browser/canary.html) or
-    /// [Dev Channel](https://www.chromium.org/getting-involved/dev-channel) build is suggested.
+    /// > [Chrome Canary](https://www.google.com/chrome/browser/canary.html) or
+    /// > [Dev Channel](https://www.chromium.org/getting-involved/dev-channel) build is suggested.
     /// >
     /// > Stock browsers like Google Chrome and Microsoft Edge are suitable for tests that require proprietary media codecs for
-    /// video playback. See
-    /// [this article](https://www.howtogeek.com/202825/what%E2%80%99s-the-difference-between-chromium-and-chrome/) for other
-    /// differences between Chromium and Chrome.
-    /// [This article](https://chromium.googlesource.com/chromium/src/+/lkgr/docs/chromium_browser_vs_google_chrome.md)
-    /// describes some differences for Linux users.
+    /// > video playback. See
+    /// > [this article](https://www.howtogeek.com/202825/what%E2%80%99s-the-difference-between-chromium-and-chrome/) for other
+    /// > differences between Chromium and Chrome.
+    /// > [This article](https://chromium.googlesource.com/chromium/src/+/lkgr/docs/chromium_browser_vs_google_chrome.md)
+    /// > describes some differences for Linux users.
     pub fn launcher(&self) -> Launcher<'_, '_, '_> { Launcher::new(self.inner.clone()) }
 
     /// launch_persistent_context [`BrowserContext`]
@@ -82,8 +82,8 @@ impl BrowserType {
     /// The default browser context is accessible via [`method: Browser.contexts`].
     ///
     /// > NOTE: Connecting over the Chrome DevTools Protocol is only supported for Chromium-based browsers.
-    /// A CDP websocket endpoint or http url to connect to. For example `http://localhost:9222/` or
-    /// `ws://127.0.0.1:9222/devtools/browser/387adf4c-243f-4051-a181-46798f4a46f4`.
+    /// > A CDP websocket endpoint or http url to connect to. For example `http://localhost:9222/` or
+    /// > `ws://127.0.0.1:9222/devtools/browser/387adf4c-243f-4051-a181-46798f4a46f4`.
     pub fn connect_over_cdp_builder<'a>(&self, endpoint_url: &'a str) -> ConnectOverCdpBuilder<'a> {
         ConnectOverCdpBuilder::new(self.inner.clone(), endpoint_url)
     }

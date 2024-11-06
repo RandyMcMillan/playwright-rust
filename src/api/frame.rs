@@ -110,9 +110,9 @@ impl Frame {
     /// [`method: Response.status`].
     ///
     /// > NOTE: `frame.goto` either throws an error or returns a main resource response. The only exceptions are navigation to
-    /// `about:blank` or navigation to the same URL with a different hash, which would succeed and return `null`.
+    /// > `about:blank` or navigation to the same URL with a different hash, which would succeed and return `null`.
     /// > NOTE: Headless mode doesn't support navigation to a PDF document. See the
-    /// [upstream issue](https://bugs.chromium.org/p/chromium/issues/detail?id=761295).
+    /// > [upstream issue](https://bugs.chromium.org/p/chromium/issues/detail?id=761295).
     pub fn goto_builder<'a>(&self, url: &'a str) -> GotoBuilder<'a, '_> {
         GotoBuilder::new(self.inner.clone(), url)
     }
@@ -865,7 +865,7 @@ impl<'a> TapBuilder<'a> {
 
     pub async fn tap(self) -> Result<(), Arc<Error>> {
         let Self { inner, args } = self;
-        let _ = upgrade(&inner)?.tap(args).await?;
+        upgrade(&inner)?.tap(args).await?;
         Ok(())
     }
 
@@ -902,7 +902,7 @@ impl<'a, 'b> FillBuilder<'a, 'b> {
 
     pub async fn fill(self) -> Result<(), Arc<Error>> {
         let Self { inner, args } = self;
-        let _ = upgrade(&inner)?.fill(args).await?;
+        upgrade(&inner)?.fill(args).await?;
         Ok(())
     }
 

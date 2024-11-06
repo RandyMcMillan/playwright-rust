@@ -1,4 +1,4 @@
-use crate::imp::{core::*, dialog::Dialog as Impl, prelude::*};
+use crate::imp::{dialog::Dialog as Impl, prelude::*};
 
 /// `Dialog` objects are dispatched by page via the [page::Event::Dialog](crate::api::page::Event::Dialog) event.
 ///
@@ -20,9 +20,9 @@ use crate::imp::{core::*, dialog::Dialog as Impl, prelude::*};
 /// ```
 ///
 /// > NOTE: Dialogs are dismissed automatically, unless there is a [`event: Page.dialog`] listener. When listener is
-/// present, it **must** either [`method: Dialog.accept`] or [`method: Dialog.dismiss`] the dialog - otherwise the page will
-/// [freeze](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop#never_blocking) waiting for the dialog, and
-/// actions like click will never finish.
+/// > present, it **must** either [`method: Dialog.accept`] or [`method: Dialog.dismiss`] the dialog - otherwise the page will
+/// > [freeze](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop#never_blocking) waiting for the dialog, and
+/// > actions like click will never finish.
 pub struct Dialog {
     inner: Weak<Impl>
 }
